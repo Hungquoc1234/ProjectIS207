@@ -1,0 +1,425 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+:root{
+    /* sidebar */
+    --toggle-color: #FFD151;
+    --sidebar-color: #8adbdc;
+    --sidebar-font-color: #FFFF;
+    --sidebar-button-hover-color: #FFFF;
+    --sidebar-font-hover-color: #8adbdc;
+
+    /* body */
+    --searchbar-color: #f0f0f0;
+    --body-color: #F1F1F1;
+    --body-font-color: #7C7C7C;
+    --product-item-color: #FFFF;
+    --price-color: #8adbdc;
+    
+    /* light dark switch */
+    --sun-moon-color: rgb(255, 225, 27);
+    --switch-color: #FFFF;
+}
+
+body.dark-theme{
+    /* sidebar */
+    --toggle-color: #282828;
+    --sidebar-color: #272727;
+    --sidebar-font-color: #eaeaea;
+    --sidebar-button-hover-color: #7a7a7a;
+
+    /* body */
+    --sidebar-font-hover-color: #c0c0c0;
+    --searchbar-color: #3d3d3d;
+    --body-color: #3e3e3e;
+    --body-font-color: #b4b4b4;
+    --product-item-color: #757575;
+    --price-color: #d1d1d1;
+
+    /* light dark switch */
+    --sun-moon-color: rgb(236, 236, 236);
+    --switch-color: #414141;
+}
+
+body{
+    background: var(--body-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.sidebar{
+    width: 220px;
+    height: 100vh;
+    background: var(--sidebar-color);
+    position: fixed;
+    display: flex;
+    transition: all 0.3s ease;
+}
+.sidebar.close{
+    width: 97.5px;
+}
+
+/* menu */
+.menu{
+    width: 100%;
+    padding: 0;
+}
+
+.real-menu{
+    height: calc(100vh - 100px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu-item{
+    width: 180px;
+    height: 50px;
+    list-style: none;
+    margin-top: 25px;
+    margin-left: 20px
+}
+.menu-item.products .menu-button{
+    background: var(--sidebar-button-hover-color);
+    transition: all 0.3s ease;
+}
+
+.menu-item.products .menu-button .menu-icon,
+.menu-item.products .menu-button .menu-name{
+    color: var(--sidebar-font-hover-color);
+}
+
+/* nút menu */
+.menu-button{
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 15px;
+    transition: all 0.3s ease;
+}
+.sidebar.close .menu-button{
+    width: 54px;
+}
+
+.menu-icon{
+    font-size: 20px;
+    width: 50px;
+    color: var(--sidebar-font-color);
+    transition: color 0.3s ease;
+}
+
+.menu-name{
+    font-weight: bold;
+    color: var(--sidebar-font-color);
+    transition: all 0.3s ease;
+}
+.sidebar.close .menu-name{
+    font-size: 0;
+}
+
+.menu-button:hover{
+    background: var(--sidebar-button-hover-color);
+}
+
+.menu-item .menu-button:hover .menu-name,
+.menu-item .menu-button:hover .menu-icon{
+    color: var(--sidebar-font-hover-color);
+}
+
+/* toogle để đóng mở sidebar */
+.hamburger-bars{
+    margin: 20px 0 10px 20px;
+    width: 30px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+.sidebar.close .hamburger-bars{
+    margin-left: 31px;
+}
+
+.hamburger-bar{
+    width: 30px;
+    height: 3px;
+    background: var(--sidebar-font-color);
+    border-radius: 10px;
+    transform-origin: 29.9px;
+    transition: all 0.3s ease;
+}
+
+.hamburger-bar:nth-child(1){
+    transform: rotate(-45deg);
+}
+.hamburger-bar:nth-child(2){
+    opacity: 0;
+}
+.hamburger-bar:nth-child(3){
+    transform: rotate(45deg);
+}
+
+.sidebar.close .hamburger-bar:nth-child(1){
+    transform: rotate(0);
+}
+.sidebar.close .hamburger-bar:nth-child(2){
+    opacity: 1;
+}
+.sidebar.close .hamburger-bar:nth-child(3){
+    transform: rotate(0);
+}
+
+/* light dark theme */
+.light-dark-theme{
+    width: 180px;
+    height: 55px;
+    margin-top: 15px;
+    margin-left: 20px;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.sidebar.close .light-dark-theme{
+    width: 70px;
+    margin-left: 10px;
+}
+
+.theme-mode-name{
+    margin-left: 15px;
+    color: var(--sidebar-font-color);
+    font-weight: bold;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+.sidebar.close .theme-mode-name{
+    font-size: 0;
+}
+
+.switch{
+    height: 25px;
+    width: 50px;
+    background: var(--switch-color);
+    border-radius: 30px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition: margin-left 0.3s ease;
+}
+
+.fa-sun{
+    position: absolute;
+    height: 17px;
+    width: 17px;
+    border-radius: 30px;
+    margin-left: 4px;
+    color: var(--sun-moon-color);
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .fa-moon{
+    position: absolute;
+    font-size: 17px;
+    margin-left: 30px;
+    color: var(--sun-moon-color);
+    transition: all 0.3s ease;
+}
+
+.sidebar.close .fa-moon{
+    margin-left: 20px;
+}
+
+.sun.animated, .fa-moon.animated{
+    animation: spin360 0.3s ease;
+}
+
+@keyframes spin360{
+    100%{
+      transform: rotate(360deg);
+    }
+}
+
+/* phần body ------------------------------------------------ */
+.body{
+    transition: all 0.3s ease;
+    background: var(--sidebar-color);
+    overflow: hidden;
+    position: relative;
+    height: 100vh;
+}
+
+.container-container{
+    width: 97%;
+    height: calc(100vh - 40px);
+    background: white;
+    border-radius: 30px;
+    margin-top: 20px;
+    transition: all ease 0.3s;
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    overflow: auto;
+}
+
+.container{
+    width: 785px;
+    padding: 40px;
+    background: white;
+    border-radius: 20px;
+    position: relative;
+    
+    
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-left: 200px;
+}
+
+label{
+    width: 200px;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px 0;
+}
+
+input{
+    width: 500px;
+    height: 50px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: 0;
+    border-radius: 10px;
+    background: rgb(235, 235, 235);
+    padding: 10px;
+}
+
+textarea{
+    width: 500px;
+    height: 100px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 10px;
+    background: rgb(235, 235, 235);
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.save-cancel-button{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 2%;
+    align-items: center;
+}
+
+.save-button{
+    width: 150px;
+    height: 50px;
+    background: rgb(23, 219, 23);
+    border-radius: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.cancel-button{
+    width: 150px;
+    height: 50px;
+    background: rgb(219, 65, 23);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+span{
+    color: white;
+    font-weight: bold;
+}
+
+.toast{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 10px;
+    background: white;
+    width: 300px;
+    padding: 20px 15px 20px 22px;
+    border-left: 5px solid rgb(162, 255, 81);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    box-shadow: 0px 0px 12px 0px rgb(202 202 202);
+    overflow: hidden;
+    transform: translateX(calc(300px + 10px));
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+.toast.active{
+    transform: translateX(0);
+}
+
+.content{
+    width: 100%;
+    display: flex;
+}
+
+.content i{
+    padding: 7px;
+    background: rgb(162, 255, 81);
+    border-radius: 50%;
+    color: white;
+}
+
+.content span{
+    font-weight: bold;
+    align-self: center;
+    margin-left: 15px;
+    font-size: 14px;   
+    color: rgb(125, 125, 125); 
+}
+
+.fa-xmark{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color:rgb(125, 125, 125); 
+}
+
+.process{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: white;
+}
+
+.process::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background: rgb(162, 255, 81);
+}
+.process.active::before{
+    animation: process 5s linear forwards;
+}
+
+@keyframes process{
+    100%{
+        right: 100%;
+    }
+}
