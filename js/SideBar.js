@@ -1,5 +1,3 @@
-console.log("SideBar.js sẵn sàng");
-
 const toggle = document.querySelector('.hamburger-bars'),
     sidebar = document.querySelector('.sidebar'),
     body = document.querySelector('.body'),

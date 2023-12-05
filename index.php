@@ -1,6 +1,5 @@
 <?php
-    require_once("php/KetNoiCSDL.php");
-    require_once('php/LoginIndex.php');
+    require_once('php/DatabaseConnection.php');
 ?>
 
 <!DOCTYPE html>
@@ -65,27 +64,31 @@
                             <i class="fa-solid user">
                                 <img src="img\usericon.png" alt="">
                                 <div class="dropdown">
-                                    <form method="post" class="dropdown-container">
-                                        <?php
-                                            if(isset($_SESSION['alert'])){
-                                                echo '<script>document.querySelector(".user").classList.toggle("active");</script>';
-                                                unset($_SESSION['alert']);
-                                            }
-                                        ?>
-                                        <h1>Đăng nhập</h1>
-                                        <div class="email-input-container">
+                                    <div class="form">
+                                        <center><h2>Đăng nhập</h2></center>
+
+                                        <ul class="message-container">
+                                            <li>Đây là message</li>
+                                        </ul>
+
+                                        <div class="input-container">
                                             <i class="fa-solid fa-envelope"></i>
-                                            <input type="text" name="email" placeholder="Email"><br>
+                                            <input type="text" id="email-input" required>
+                                            <label for="email-input">Email</label>
                                         </div>
-                                        <div class="password-input-container">
+
+                                        <div class="input-container">
                                             <i class="fa-solid fa-lock"></i>
-                                            <input type="password" name="password" placeholder="Mật khẩu"><br>
+                                            <input type="password" id="password-input" required>
+                                            <label for="password-input">Mật khẩu</label>
                                         </div>
-                                        <button class="submit-button" type="submit">Đăng nhập</button>
-                                        <span class="dont-have-account">Bạn chưa có tài khoản? 
-                                            <a href="php/SignUp.php">Đăng ký!</a>
-                                        </span>
-                                    </form>
+
+                                        <button class="submit-button" onclick="submitForm()">Đăng nhập</button>
+
+                                        <div class="dont-have-account">Bạn chưa có tài khoản? 
+                                            <a href="Signup.php">Đăng ký!</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </i>
                         </div>
@@ -101,7 +104,7 @@
                             while($row = mysqli_fetch_array($result)){
                                 echo '
                                     <div class="product-container">
-                                        <a href="ProductDetail.php?product-id='.$row['ProductID'].'" class="product">
+                                        <a href="php/ProductDetail.php?product-id='.$row['ProductID'].'" class="product">
                                             <img src="img/'.$row['Image'].'" class="product-image">
                                             <div class="name-price-container">
                                                 <h3 class="product-name">'.$row['Name'].'</h3>
@@ -127,9 +130,8 @@
     <script src="js/SideBar.js?v=<?php echo time(); ?>"></script>
     <script src="js/LightDarkSwitch.js?v=<?php echo time(); ?>"></script>
     <script src="js/DropDown.js?v=<?php echo time(); ?>"></script>
-    <script>
-        document.querySelector('.dropdown-container').appendChild(document.querySelector('.fa-circle-exclamation'));
-        document.querySelector('.dropdown-container').appendChild(document.querySelector('.alert'));
-    </script>
+    <script src="js/Login.js?v=<?php echo time(); ?>"></script>
+    <script src="js/index.js?v=<?php echo time(); ?>"></script>
+    
 </body>
 </html>

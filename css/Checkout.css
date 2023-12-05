@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Roboto:wght@400;500;700&display=swap');
-
 *{
     box-sizing: border-box;
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 :root{
@@ -52,6 +50,86 @@ body{
     position: relative;
 }
 
+.black-curtain{
+    display: none;
+    position: absolute;
+    background: rgba(87, 87, 87, 0.6);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification{
+    width: 400px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 20px 20px; 
+    box-shadow: 3px 3px 11px 0px #666666;
+}
+
+.check-container{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgb(113, 255, 74);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-70px);
+    position: absolute;
+    box-shadow: 0px 2px 3px 0 #b8a788;
+}
+
+.fa-check{
+    color: white;
+    font-size: 30px;
+}
+
+.notification #head{
+    margin-top: 10px;
+    color: rgb(74, 74, 74);
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.notification p{
+    margin-top: 15px;
+    text-align: center;
+    color: rgb(155, 155, 155);
+}
+
+.sure-cancel-container{
+    margin-top: 35px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.home-button{
+    width: 150px;
+    height: 40px;
+    background: rgb(107, 254, 88);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.sure-button span{
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
 .sidebar{
     width: 220px;
     height: 100vh;
@@ -68,14 +146,6 @@ body{
 .menu{
     width: 100%;
     padding: 0;
-}
-
-.upper-menu{
-    height: 75%;
-}
-
-.lower-menu{
-    height: 25%;
 }
 
 .real-menu{
@@ -267,41 +337,35 @@ body.dark-theme .fa-moon{
 .container-container{
     width: 97%;
     height: calc(100vh - 40px);
-    background: white;
+    background: rgb(255, 255, 255);
     border-radius: 30px;
     margin-top: 20px;
     transition: all ease 0.3s;
     overflow: auto;
     display: flex;
-    justify-content: center;
     overflow: auto;
 }
 
-.container{
-    width: 785px;
-    padding: 40px;
-    background: white;
-    border-radius: 20px;
+.form{
+    width: 60%;
+    padding: 60px 100px;
+    background: rgb(255, 255, 255);
     position: relative;
-    
-    
 }
 
 .message-container{
     width: 0%;
     height: 45px;
     border-radius: 10px;
-    margin: 25px 0;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     list-style: none;
     padding: 0;
     transition: 0.2s ease all;
-    position: relative;
-    left: 203px;
 }
 .message-container.active{
-    width: 500px;
+    width: 100%;
     background: rgb(252, 116, 116);
     padding: 10px 20px;
 }
@@ -315,13 +379,6 @@ body.dark-theme .fa-moon{
     color: white;
 }
 
-img{
-    width: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-left: 200px;
-}
-
 label{
     width: 200px;
     font-size: 16px;
@@ -331,7 +388,7 @@ label{
 }
 
 input{
-    width: 500px;
+    width: 100%;
     height: 50px;
     margin: 10px 0;
     font-size: 16px;
@@ -339,17 +396,6 @@ input{
     border-radius: 10px;
     background: rgb(235, 235, 235);
     padding: 10px;
-}
-
-textarea{
-    width: 500px;
-    height: 100px;
-    font-size: 15px;
-    border: 0;
-    border-radius: 10px;
-    background: rgb(235, 235, 235);
-    padding: 10px;
-    margin: 10px 0;
 }
 
 .save-cancel-button{
@@ -368,6 +414,7 @@ textarea{
     border-radius: 20px;
     color: white;
     font-weight: bold;
+    border: none;
 }
 
 .cancel-button{
@@ -386,78 +433,95 @@ span{
     font-weight: bold;
 }
 
-.toast{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    border-radius: 10px;
-    background: white;
-    width: 300px;
-    padding: 20px 15px 20px 22px;
-    border-left: 5px solid rgb(162, 255, 81);
+/* cart */
+.cart-container{
+    border-left: 2px rgb(172, 172, 172) solid;
+    width: 40%;
+    padding: 40px 70px;
+    background: rgb(255, 255, 255);
+    position: relative;
+}
+
+.cart{
+    width: 100%;
+}
+
+.product-container{
+    position: relative;
+}
+
+.product{
+    height: 110px;
+    width: 100%;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 5px 5px 11px #c2c2c2;
+    display: flex;
+    padding: 10px;
+    margin-bottom: 20px;
+    color:rgb(70, 70, 70);
+}
+
+.product a{
+    text-decoration: none;
+}
+
+.product img{
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+
+.name-price-container{
     display: flex;
     flex-direction: column;
-    align-items: end;
-    box-shadow: 0px 0px 12px 0px rgb(202 202 202);
-    overflow: hidden;
-    transform: translateX(calc(300px + 10px));
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.35);
-}
-.toast.active{
-    transform: translateX(0);
+    justify-content: space-between;
+    padding: 15px 10px 30px 10px;
 }
 
-.content{
-    width: 100%;
+.adjust-quantity-container{
+    height: 100%;
+    background-color: rgb(235, 235, 235);
+    border-radius: 10px;
+    margin-left: 140px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.content i{
-    padding: 7px;
-    background: rgb(162, 255, 81);
-    border-radius: 50%;
-    color: white;
+.minus, .add{
+    font-size: 16px;
+    color: black;
+    cursor: pointer;
 }
 
-.content span{
-    font-weight: bold;
-    align-self: center;
-    margin-left: 15px;
-    font-size: 14px;   
-    color: rgb(125, 125, 125); 
+.number{
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px 0;
 }
 
 .fa-xmark{
+    top: -15px;
+    left: -15px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    color:rgb(125, 125, 125); 
+    width: 30px;
+    height: 30px;
+    background:rgb(219, 65, 23);
+    color: white;
 }
 
-.process{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    background: white;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.process::before{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-    width: 100%;
-    background: rgb(162, 255, 81);
-}
-.process.active::before{
-    animation: process 5s linear forwards;
-}
-
-@keyframes process{
-    100%{
-        right: 100%;
-    }
+input[type=number] {
+  -moz-appearance: textfield;
 }

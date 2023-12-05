@@ -1,28 +1,19 @@
 <?php
-    require_once("KetNoiCSDL.php");
-    if($_COOKIE['Role'] != 'user'){
-        if($_COOKIE['Role'] == 'admin'){
+    require_once("php/DatabaseConnection.php");
+    if($_COOKIE['Role'] != 'admin'){
+        if($_COOKIE['Role'] == 'user'){
             header('Location: HomeUser.php');
         }
         else{
-            header('Location: ../index.php');
+            header('Location: index.php');
         }
     }
-    require_once('Login.php');
 
     $result = mysqli_query($con, 'select ProfileImage, UserName from user where UserID = '.$_COOKIE['UserID']);
 
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_array($result);
         $Image = $row['ProfileImage'];
-    
-        if(isset($_FILES['ProfileImage'])){
-            $Image = $_FILES['ProfileImage']['name'];
-
-            mysqli_query($con, "update user set ProfileImage = '../img/".$_FILES['ProfileImage']['name']."' where UserID = ".$_COOKIE['UserID']);
-
-            move_uploaded_file($_FILES['ProfileImage']['tmp_name'], "../img/".$_FILES['ProfileImage']['name']);
-        }
     }
 ?>
 
@@ -33,7 +24,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../css/Home.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/Home.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="sidebar-body-container">
@@ -46,7 +37,7 @@
                 </div>
 
                 <div class="real-menu">
-                    <div class="">
+                    <div class="upper-menu">
                         <li class="menu-item home">
                             <a href="" class="menu-button">
                                 <i class="fa-solid fa-house menu-icon"></i>
@@ -79,7 +70,7 @@
                         </li>
                     </div>
                     
-                    <div class="">
+                    <div class="lower-menu">
                         <li class="menu-item">
                             <a href="Logout.php" class="menu-button">
                                 <i class="fa-solid fa-right-from-bracket menu-icon"></i>
@@ -109,14 +100,18 @@
                             </div>
                         </form>
                         <div class="cart-user">
-                            <i class="fa-solid fa-cart-shopping"></i>
+                            <div class="fa-solid fa-cart-shopping">
+                                <div class="cart-container">
+
+                                </div>
+                            </div>
                             <div class="user">
-                                <img src="<?php echo "../img/".$Image; ?>" alt="">
+                                <div class="B"></div>
                                 <div class="dropdown">
+                                    <i class="fa-solid fa-xmark"></i>
                                     <div class="dropdown-container">
                                         <div class="image-name-container">
-                                            <img class="image" src="<?php echo "../img/".$Image; ?>" alt="">
-                                            <h2><?php echo $row['UserName']; ?></h2>
+                                            <div class="A"></div>
                                             <div class="edit-image-button" onclick="openUpdateImageContainer()">
                                                 <i class="fa-solid fa-pen"></i>
                                             </div>
@@ -127,32 +122,33 @@
                                         <button class="dropdown-icon switch-account-button" onClick="changeToLoginForm()"><i class="fa-solid fa-repeat"></i>Chuyển tài khoản</button>
                                         <a href="Logout.php" class="dropdown-icon logout-button"><i class="fa-solid fa-right-from-bracket"></i>Đăng xuất</a>
                                     </div>
-                                    <form method="post" class="dropdown-container1">
+                                        
+                                    <div class="form">
                                         <i class="fa-solid fa-arrow-left" onClick="backToAccountInfo()"></i>
-                                        <?php
-                                            if(isset($_SESSION['alert'])){
-                                                echo '<script>
-                                                        document.querySelector(".user").classList.toggle("active");
-                                                        document.querySelector(".dropdown-container1").style.display = "flex";
-                                                        document.querySelector(".dropdown-container").style.display = "none";
-                                                    </script>';
-                                                unset($_SESSION['alert']);
-                                            }
-                                        ?>
-                                        <h2><center>Đăng nhập</center></h2>
-                                        <div class="email-input-container">
+                                        <center><h2>Đăng nhập</h2></center>
+
+                                        <ul class="message-container">
+                                            <li>Đây là message</li>
+                                        </ul>
+
+                                        <div class="input-container">
                                             <i class="fa-solid fa-envelope"></i>
-                                            <input type="text" name="email" placeholder="Email"><br>
+                                            <input type="email" id="email-input" required>
+                                            <label for="email-input" class="input-label">Email</label>
                                         </div>
-                                        <div class="password-input-container">
+
+                                        <div class="input-container">
                                             <i class="fa-solid fa-lock"></i>
-                                            <input type="password" name="password" placeholder="Mật khẩu"><br>
+                                            <input type="password" id="password-input" required>
+                                            <label for="password-input" class="input-label">Mật khẩu</label>
                                         </div>
-                                        <button class="submit-button" type="submit">Đăng nhập</button>
-                                        <span class="dont-have-account">Bạn chưa có tài khoản? 
-                                            <a href="SignUp.php">Đăng ký!</a>
-                                        </span>
-                                    </form>
+
+                                        <button class="submit-button" onclick="submitForm()">Đăng nhập</button>
+
+                                        <div class="dont-have-account">Bạn chưa có tài khoản? 
+                                            <a href="Signup.php">Đăng ký!</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -162,60 +158,44 @@
                     
                     
                 <div class="content-container">
-                        <?php
-                            $result = mysqli_query($con, 'select * from product join user on product.UserID = user.UserID order by ProductID desc');
-                            while($row = mysqli_fetch_array($result)){
-                                echo '
-                                    <div class="product-container">
-                                        <a href="ProductDetail.php?product-id='.$row['ProductID'].'" class="product">
-                                            <img src="../img/'.$row['Image'].'" class="product-image">
-                                            <div class="name-price-container">
-                                                <h3 class="product-name">'.$row['Name'].'</h3>
-                                                <h5 class="user-name">'.$row['UserName'].'<h5>
-                                            </div>
-                                            <div class="price-profileImage-container">
-                                                <h3 class="product-price">'.number_format($row['Price'], 0, '', '.').'đ</h3>
-                                                <img src="../img/'.$row['ProfileImage'].'" class="user-profile-image">
-                                            </div>
-                                           
-                                        </a>
-                                    </div>
-                                ';
-                            }
-                        ?>
+                        
                 </div>
             </div>
         </div>
 
-    <div class="black-curtain">
-        <form class="update-profile-image-container" method="post" enctype="multipart/form-data" onsubmit="onFormSubmit()">
-            <img class="profile-image" src="../img/<?php echo $Image; ?>" alt="">
-            <div class="edit-image-button1">
-                <label for="input-file" class="fa-solid fa-pen"></label>
-                <input id="input-file" type="file" accept="image/jpeg, image/png, image/jpg" onchange="inputFile()" name="ProfileImage">
+        <div class="black-curtain">
+            <div class="update-profile-image-form" enctype="multipart/form-data">
+                <img class="profile-image" src="img/<?php echo $Image; ?>" alt="">
+                <div class="edit-image-button1">
+                    <label for="input-file" class="fa-solid fa-pen"></label>
+                    <input id="input-file" type="file" accept="image/jpeg, image/png, image/jpg" onchange="viewImage()">
+                </div>
+                <div class="update-profile-image-button-container">
+                    <button class="update-profile-image-button" onclick="updateImageFormSubmit()">Cập nhật</button>
+                    <button class="cancel-update-profile-image-button" onclick="cancelUpdateImage()">Hủy</button>
+                </div>
             </div>
-            <div class="update-profile-image-button-container">
-                <button type="submit" class="update-profile-image-button" onclick="reloadPage()">Update</button>
-                <button class="cancel-update-profile-image-button" onclick="cancelUpdateImage()">Cancel</button>
-            </div>
-        </form>
+        </div>
     </div>
 
+    <script src="js/SideBar.js?v=<?php echo time(); ?>"></script>
+    <script src="js/LightDarkSwitch.js?v=<?php echo time(); ?>"></script>
+    <script src="js/DropDown.js?v=<?php echo time(); ?>"></script>
+    <script src="js/Login.js?v=<?php echo time(); ?>"></script>
+    <script src="js/Home.js?v=<?php echo time(); ?>"></script>
 
-    </div>
-
-    <script src="../js/SideBar.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/LightDarkSwitch.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/DropDown.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/InputFile.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/StopAutoSubmitFormFromReloadPage.js?v=<?php echo time(); ?>"></script>
     <script>
-        document.querySelector('.dropdown-container').appendChild(document.querySelector('.fa-circle-exclamation'));
-        document.querySelector('.dropdown-container').appendChild(document.querySelector('.alert'));
+        function viewImage(){
+            document.querySelector('.profile-image').src = URL.createObjectURL(document.querySelector('#input-file').files[0]);
+        }
 
         function openUpdateImageContainer(){
             document.querySelector('.black-curtain').style.display = 'flex';
-            document.querySelector('.update-profile-image-container').style.display = 'flex';
+            document.querySelector('.update-profile-image-form').style.display = 'flex';
+        }
+
+        function cancelUpdateImage(){
+            document.querySelector('.black-curtain').style.display = 'none';
         }
     </script>
 </body>

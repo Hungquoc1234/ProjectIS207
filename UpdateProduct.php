@@ -1,20 +1,3 @@
-<?php
-    require_once('KetNoiCSDL.php');
-
-    if(isset($_POST['Name']) and isset($_POST['Price']) and isset($_FILES['image'])){
-        $Name = $_POST['Name'];
-        $Price = $_POST['Price'];
-        $Description = $_POST['Description'];
-        $Image = $_FILES['image']['name'];
-
-        $Description = str_replace("'", "`", $Description);
-    
-        mysqli_query($con, "insert into product values('', ".$_COOKIE['UserID'].", '$Image', '', '$Name', '$Price', '$Description')");
-
-        move_uploaded_file($_FILES['image']['tmp_name'], "../img/".$Image);
-    }
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="..\css\AddProduct.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="css/AddProduct.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="sidebar-body-container">
@@ -35,9 +18,9 @@
                 </div>
 
                 <div class="real-menu">
-                    <div class="">
+                    <div class="upper-menu">
                         <li class="menu-item home">
-                            <a href="HomeAdmin.php" class="menu-button">
+                            <a href="" class="menu-button">
                                 <i class="fa-solid fa-house menu-icon"></i>
                                 <span class="menu-name">Trang chủ</span>
                             </a>
@@ -68,7 +51,7 @@
                         </li>
                     </div>
                     
-                    <div class="">
+                    <div class="lower-menu">
                         <li class="menu-item">
                             <a href="Logout.php" class="menu-button">
                                 <i class="fa-solid fa-right-from-bracket menu-icon"></i>
@@ -89,31 +72,39 @@
 
         <div class="body">
             <div class="container-container">
-                <form class="container" method="post" enctype="multipart/form-data">
-                    <label for="image">Image:</label>
-                    <input type="file" name="image" id="input-file" onchange="inputFile()"><br>
-                    <img src="" class="profile-image"><br>
+                <div class="container" method="post" enctype="multipart/form-data">
+                    <ul class="message-container">
+                        <li>Đây là message</li>
+                    </ul>
 
-                    <label for="name">Name:</label>
-                    <input type="text" name="Name"><br>
+                    <input id="input-hidden" type="hidden" value="<?php echo $_GET['ProductID']; ?>">
+                    
+                    <label for="input-file">Ảnh:</label>
+                    <input type="file" name="image" id="input-file" onchange="viewImage()"><br>
+                    <img src="" class="product-image"><br>
 
-                    <label for="price">Price:</label>
-                    <input type="number" name="Price" ><br>
+                    <label for="input-name">Tên sản phẩm:</label>
+                    <input type="text" id="input-name"><br>
 
-                    <label for="description">Description:</label>
-                    <textarea name="Description"></textarea><br>
+                    <label for="input-price">Giá:</label>
+                    <input type="number" id="input-price" ><br>
+
+                    <label for="description">Mô tả:</label>
+                    <textarea name="Description" id="description"></textarea><br>
                     <div class="save-cancel-button">
-                        <input type="submit" value="Save" class="save-button" onclick="storeToast()">
-                        <a href="ProductManagement.php" class="cancel-button"><span>Cancel</span></a>
+                        <input type="submit" value="Thêm sản phẩm" class="save-button" onclick="submitForm()">
+                        <a href="ProductManagement.php" class="cancel-button"><span>Hủy</span></a>
                     </div>
-                </form>
+                </div>
+
+                
             </div>
 
             <div class="toast">
                 <i class="fa-solid fa-xmark" onclick="closeToast()"></i>
                 <div class="content">
                     <i class="fa-solid fa-check"></i>
-                    <span>Thêm sản phẩm thành công</span>
+                    <span>Cập nhật sản phẩm thành công</span>
                 </div>
                 <div class="process"></div>
             </div>
@@ -122,9 +113,17 @@
         
     </div>
 
-    <script src="../js/SideBar.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/LightDarkSwitch.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/InputFile.js?v=<?php echo time(); ?>"></script>
-    <script src="../js/Toast.js?v=<?php echo time(); ?>"></script>
+    <script src="js/SideBar.js?v=<?php echo time(); ?>"></script>
+    <script src="js/LightDarkSwitch.js?v=<?php echo time(); ?>"></script>
+    <script src="js/UpdateProduct.js?v=<?php echo time(); ?>"></script>
+
+    <script>
+        function viewImage(){
+            document.querySelector('.product-image').src = URL.createObjectURL(document.querySelector('#input-file').files[0]);
+        }
+        function closeToast(){
+            document.querySelector('.toast').classList.remove('active');
+        }
+    </script>
 </body>
 </html>

@@ -1,2 +1,0 @@
-document.querySelector('.dropdown-container').appendChild(document.querySelector('.fa-circle-exclamation'));
-document.querySelector('.dropdown-container').appendChild(document.querySelector('.alert'));

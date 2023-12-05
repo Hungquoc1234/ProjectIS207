@@ -44,39 +44,6 @@ body.dark-theme{
     --switch-color: #414141;
 }
 
-.alert{
-    position: absolute;
-    color: rgb(255, 48, 48);
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.fa-circle-exclamation{
-    color: rgb(255, 48, 48);
-    position: absolute;
-    top: 40px;
-    left: 30px;
-    font-size: 22px;
-}
-
-.fa-circle-exclamation.a{
-    color: rgb(255, 48, 48);
-    position: absolute;
-    top: 40px;
-    left: 30px;
-    font-size: 22px;
-}
-
-.not-enough-information{
-    top: 42px;
-    left: 58px;
-}
-
-.wrong-account-or-password{
-    top: 42px;
-    left: 58px;
-}
-
 body{
     background: var(--body-color);
     transition: all 0.3s ease;
@@ -106,6 +73,14 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.upper-menu{
+    height: 75%;
+}
+
+.lower-menu{
+    height: 25%;
 }
 
 .menu-item{
@@ -395,6 +370,13 @@ body.dark-theme .fa-moon{
     display: flex;
 }
 
+.fa-xmark{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 30px;
+}
+
 .dropdown-container{
     width: 100%;
     display: flex;
@@ -413,6 +395,12 @@ body.dark-theme .fa-moon{
     align-items: center;
     height: 180px;
     position: relative;
+}
+
+.A{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .image-name-container img{
@@ -445,7 +433,7 @@ body.dark-theme .fa-moon{
     opacity: 1;
 }
 
-.edit-image-button div{
+.edit-image-button i{
     font-size: 20px;
     color: rgba(83, 83, 83, 0.6);
 }
@@ -514,61 +502,89 @@ body.dark-theme .fa-moon{
     cursor: pointer;
 }
 
-.email-input-container{
-    position: relative;
-    height: 45px;
-    width: 300px;
-    margin-top: 40px;
+.form{
+    display: none;
+    width: 90%;
 }
 
-.fa-envelope{
-    position: absolute;
-    font-size: 20px;
-    top: 12px;
-    left: 10px;
-}
-
-.email-input-container input{
-    width: 100%;
-    height: 100%;
-    border-radius: 15px;
-    border: 0;
-    background: rgb(242, 242, 242);
-    padding-left: 40px;
+h1{
+    font-size: 50px;
     font-weight: bold;
 }
 
-.password-input-container{
-    position: relative;
+.message-container{
+    width: 0%;
     height: 45px;
-    width: 300px;
-    margin-top: 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    transition: 0.2s ease all;
+}
+.message-container.active{
+    width: 100%;
+    background: rgb(252, 116, 116);
+    padding: 10px 20px;
 }
 
-.fa-lock{
-    position: absolute;
-    font-size: 20px;
-    top: 12px;
-    left: 10px;
+.message-container li{
+    font-size: 0;
+    transition: 0.2s ease all;
+}
+.message-container.active li{
+    font-size: 14px;
+    color: white;
 }
 
-.password-input-container input{
+.input-container {
+    width: 100%;
+    height: 45px;
+    position: relative;
+    margin-top: 25px;
+}
+
+.input-container input{
+    padding-left: 42px;
+    padding-top: 10px;
+    border: 0;
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    border: 0;
-    background: rgb(242, 242, 242);
-    padding-left: 40px;
-    font-weight: bold;
+    background-color: rgb(236, 236, 236);
+    border-radius: 10px;
+    /* color:rgb(39, 255, 147)) */
+}
+
+.input-container i {
+    top: 15px;
+    left: 15px;
+    position: absolute;
+    color: rgb(97, 97, 97);
+}
+
+.input-label {
+    position: absolute;
+    font-size: 14px;
+    top: 15px;
+    left: 42px;
+    transition: 0.3s all ease;
+    pointer-events: none;
+    color: rgb(118, 118, 118);
+}
+.input-container input:focus + .input-label,
+.input-container input:valid + .input-label {
+    font-size: 10px;
+    top: 5px;
 }
 
 .submit-button{
-    margin-top: 15px;
-    width: 300px;
+    margin-top: 20px;
+    width: 100%;
     height: 45px;
     background: rgb(255, 197, 90);
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -579,12 +595,15 @@ body.dark-theme .fa-moon{
 }
 
 .dont-have-account{
-    margin-top: 15px;
+    text-align: center;
+    width: 100%;
     font-size: 16px;
     font-weight: bold;
+    margin-top: 15px;
 }
 
 .dont-have-account a{
+    
     text-decoration: none;
     color: var(--price-color)
 }
@@ -662,6 +681,7 @@ td{
 .product-image{
     height: 50px;
     width: 50px;
+    object-fit: cover;
     border-radius: 30px;
 }
 
@@ -716,78 +736,6 @@ tr:nth-child(even){
     left: 0;
     align-items: center;
     justify-content: center;
-}
-
-.update-profile-image-container{
-    width: 400px;
-    padding: 30px;
-    background: white;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 15px;
-    position: relative;
-}
-
-.update-profile-image-container img{
-    width: 150px;
-    height: 150px;
-    object-fit: conver;
-    border-radius: 100%;
-}
-
-.edit-image-button1{
-    display: flex;
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    justify-content: center;
-    align-items: center;
-    top: 30px;
-    background: rgba(173, 173, 173, 0.5);
-    opacity: 0;
-    transition: all ease 0.3s;
-}
-.edit-image-button1:hover{
-    opacity: 1;
-}
-
-.edit-image-button1 label{
-    font-size: 30px;
-    color: rgba(83, 83, 83, 0.6);
-}
-
-#input-file{
-    display: none;
-}
-
-.update-profile-image-button-container{
-    width: 100%;
-    height: 40px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-}
-
-.update-profile-image-button{
-    width: 150px;
-    height: 100%;
-    background:rgb(255, 197, 90);
-    border-radius: 15px;
-    color: white;
-    font-weight: bold;
-    border: none;
-}
-
-.cancel-update-profile-image-button{
-    width: 150px;
-    height: 100%;
-    background:rgb(255, 99, 99);
-    border-radius: 15px;
-    font-weight: bold;
-    color: white;
-    border: none;
 }
 
 .confirm-dialog{
