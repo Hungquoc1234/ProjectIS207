@@ -200,6 +200,26 @@ ALTER TABLE `invoice_detail`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`);
+
+SELECT 
+   USERID  AS user_id
+FROM 
+   user;
+SELECT 
+   ProfileImage  AS img
+FROM 
+   user;
+ALTER TABLE 'user' ADD COLUMN 'unique_id' int(255) NOT NULL,
+CREATE TABLE `messages` (
+  `msg_id` int(11) NOT NULL,
+  `incoming_msg_id` int(255) NOT NULL,
+  `outgoing_msg_id` int(255) NOT NULL,
+  `msg` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`msg_id`);
+ALTER TABLE `messages`
+  MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
