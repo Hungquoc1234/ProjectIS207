@@ -209,7 +209,13 @@ SELECT
    ProfileImage  AS img
 FROM 
    user;
+SELECT 
+   Email  AS email
+FROM 
+  user;
+
 ALTER TABLE 'user' ADD COLUMN 'unique_id' int(255) NOT NULL,
+ALTER TABLE 'user' ADD COLUMN 'status' varchar(255) NOT NULL,
 CREATE TABLE `messages` (
   `msg_id` int(11) NOT NULL,
   `incoming_msg_id` int(255) NOT NULL,
@@ -220,10 +226,7 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`msg_id`);
 ALTER TABLE `messages`
   MODIFY `msg_id` int(11) NOT NULL AUTO_INCREMENT;
-SELECT 
-   Email  AS email
-FROM 
-  user;
+
 COMMIT;
 
 
